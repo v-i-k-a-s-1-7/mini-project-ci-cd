@@ -1,7 +1,7 @@
 version : "3.3"
 services :
   web :
-    #image: "springsloth/notes-app:latest"
+     image: "springsloth/my-app:latest"
      build:
        context: .
      ports :
