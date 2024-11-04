@@ -2,7 +2,7 @@ version: '1.0'  # Use a suitable version for your project
 
 services:
   my-app:
-    image: my-app:3.0  # Use your existing image
+    image: my-app:10.0  # Use your existing image
     ports:
       - "3000:3000"  # Map host port 3000 to container port 3000
     # If port 3000 is already in use, you can map to a different port:
