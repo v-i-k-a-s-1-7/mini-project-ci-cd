@@ -2,7 +2,7 @@ version : "3.3"
 services :
   web :
      image: "springsloth/my-app:latest"
-     build:
-       context: .
+       #build:
+       #context: .
      ports :
          - "3000:3000"
