@@ -1,45 +1,69 @@
-# mini-project-ci-cd
-# CI/CD Pipeline Demonstration Project
+# Automated Deployment Pipeline for a Web Application
 
-## Overview
+This project demonstrates a Continuous Integration and Continuous Deployment (CI/CD) pipeline using Jenkins, Docker, and AWS EC2. The goal is to automate the deployment of a simple web application on an EC2 instance, providing hands-on experience with DevOps tools and practices.
 
-This project is designed to demonstrate the setup and functionality of a CI/CD (Continuous Integration/Continuous Deployment) pipeline using Jenkins and Docker. It showcases how to automate the building, testing, and deployment of a Node.js application within a containerized environment.
+## Project Overview
 
-## Key Concepts
+The project sets up a fully automated pipeline where:
+- A web application is created and dockerized.
+- Jenkins is configured to monitor a Git repository for changes.
+- Jenkins builds a Docker image of the app, pushes it to a registry, and deploys it to an EC2 instance.
 
-- **CI/CD Pipeline**: Automates the process of building, testing, and deploying applications, ensuring rapid and reliable software delivery.
-- **Docker**: Containerizes the application, ensuring consistent behavior across different environments.
-- **Jenkins**: Manages the pipeline, automating each step of the build and deployment process.
+### Key Tools
+- **Jenkins**: For automating the build, test, and deployment processes.
+- **Docker**: To containerize the application and make deployment consistent across environments.
+- **AWS EC2**: Instances for hosting Jenkins and the deployed application.
 
-## Pipeline Workflow
+## Project Setup
 
-### 1. **Source Code Management**
-   - The source code is maintained in a Git repository. Jenkins is configured to watch for changes in the repository.
+Follow these steps to recreate the setup:
 
-### 2. **Jenkins Pipeline**
-   - The CI/CD pipeline is defined in the `Jenkinsfile`, which automates the following steps:
-     - **Build**: Jenkins clones the repository and initiates the build process.
-     - **Docker Build**: A Docker image is built using the provided `Dockerfile`.
-     - **Test (Optional)**: Although no specific tests are included, this step can be added to execute automated tests.
-     - **Deploy**: The built Docker image is run in a container, exposing the application to the specified port (e.g., 3000).
+### 1. Create and Dockerize the Web Application
+   - Develop a basic web application in Node.js or Python.
+   - Write a `Dockerfile` to package the app into a Docker image.
+   - Push the app code to a GitHub repository.
 
-### 3. **Docker Integration**
-   - The project is containerized using Docker, ensuring consistency across development, testing, and production environments.
-   - The `Dockerfile` defines the steps to set up the Node.js environment, install dependencies, and run the application inside the container.
-   - The application is run inside a Docker container, exposing port `3000` to the host machine for access.
+### 2. Set Up Jenkins on an EC2 Instance
+   - Launch an EC2 instance and install Jenkins.
+   - Configure Jenkins, including necessary plugins for Docker and Git.
+   - Add an SSH key to allow Jenkins access to other EC2 instances for deployment.
 
-## Docker Usage
+### 3. Configure Jenkins Pipeline
+   - Set up a Jenkins pipeline job that:
+     - Pulls the latest code from the Git repository.
+     - Builds a Docker image based on the `Dockerfile`.
+     - Pushes the Docker image to Docker Hub or a private registry.
 
-The Docker configuration is essential to this project, enabling the application to run in a consistent environment. Here’s how Docker is used in the CI/CD process:
+### 4. Set Up Deployment Server on EC2
+   - Launch another EC2 instance to serve as the deployment environment.
+   - Install Docker on this instance to enable running the Dockerized app.
+   - Ensure SSH access between this instance and Jenkins.
 
-### Dockerfile
+### 5. Automate Deployment Using Jenkins
+   - Add a deployment stage to the Jenkins pipeline:
+     - SSH into the deployment server.
+     - Pull the Docker image from the registry.
+     - Run the Docker container to deploy the app.
 
-The `Dockerfile` defines the following steps:
+### 6. Test the Pipeline
+   - Verify that the pipeline correctly builds, pushes, and deploys the app when changes are committed to the Git repository.
 
-1. **Base Image**: The application is built on top of the official Node.js image.
-2. **Working Directory**: A directory is created inside the container to hold the application code.
-3. **Copy Files**: The application’s code is copied into the working directory.
-4. **Install Dependencies**: The required Node.js dependencies are installed.
-5. **Expose Port**: Port `3000` is exposed to allow access to the running application.
-6. **Run the Application**: The application is started using `node index.js`.
+## Project Outcome
+
+This project provides hands-on experience in:
+- Setting up CI/CD with Jenkins and Docker.
+- Deploying containerized applications on AWS EC2.
+- Automating end-to-end deployment for efficient DevOps workflows.
+
+## Prerequisites
+
+- Basic knowledge of Jenkins, Docker, and AWS EC2.
+- A GitHub account and repository for storing the web application code.
+- AWS account with EC2 access.
+
+## Usage
+
+1. Clone the repository and make changes to the web application code.
+2. Push updates to the Git repository.
+3. Jenkins will detect the changes, rebuild the Docker image, and deploy the new version to the EC2 instance automatically.
 
